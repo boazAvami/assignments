@@ -1,0 +1,25 @@
+### Add a New Post
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "sender": "user123",
+    "content": "Hello, this is my first post!"
+}
+
+### Get All Posts
+GET http://localhost:3000/post
+
+### Get Posts by Sender
+GET http://localhost:3000/post?sender=user123
+
+### Get a Post by ID
+GET http://localhost:3000/post/6742fc8f49c5cfeb895bc61e
+
+### Update a Post
+PUT http://localhost:3000/post/6742fc8f49c5cfeb895bc61e
+Content-Type: application/json
+
+{
+    "content": "This is the updated post content."
+}
