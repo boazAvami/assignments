@@ -4,7 +4,13 @@ const createComment = async (sender, content, postId) => {
     if (!sender || !content || !postId) {
         throw new Error('Sender, content and postId are required.');
     }
-    return await commentRepository.addComment({ sender, content, postId });
+    const post = await commentRepository.findPostById(postId);
+    if (!post) throw new Error('Post not found');
+
+    const comment = await commentRepository.addComment({ sender, content, postId });
+    await commentRepository.addCommentToPost(postId, comment._id);
+
+    return comment;
 };
 
 const deleteComment = async (id) => {
@@ -12,6 +18,7 @@ const deleteComment = async (id) => {
     if (!comment) throw new Error('Comment not found');
 
     await commentRepository.deleteComment(id);
+    await commentRepository.removeCommentFromPost(comment.postId, comment._id);
 
     return { message: 'Comment deleted successfully' };
 };
@@ -39,7 +46,7 @@ const getCommentsByPostId = async (postId) => {
     const post = await commentRepository.findPostById(postId);
     if (!post) throw new Error('Post not found');
 
-    return post.comments; // Populated array
+    return post.comments;
 };
 
 module.exports = {

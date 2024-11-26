@@ -23,9 +23,17 @@ const deleteComment = async (id) => {
 };
 
 const findPostById = async (postId) => {
-    const post = await Post.findById(postId);
-    return post.populate('comments');
-  }
+    return await Post.findById(postId).populate('comments');
+};
+
+const addCommentToPost = async (postId, commentId) => {
+    return await Post.findByIdAndUpdate(postId, { $push: { comments: commentId } });
+};
+
+  const removeCommentFromPost = async (postId, commentId) => {
+    return await Post.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
+};
+
 
 module.exports = {
     addComment,
@@ -34,4 +42,6 @@ module.exports = {
     updateComment,
     deleteComment,
     findPostById,
+    addCommentToPost,
+    removeCommentFromPost,
 };
