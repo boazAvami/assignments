@@ -10,16 +10,47 @@ Content-Type: application/json
 ### Get All Posts
 GET http://localhost:3000/post
 
+### Get a Post by ID
+GET http://localhost:3000/post/67460ea71ab399fbc8d97141
+
 ### Get Posts by Sender
 GET http://localhost:3000/post?sender=user123
 
-### Get a Post by ID
-GET http://localhost:3000/post/6742fc8f49c5cfeb895bc61e
-
 ### Update a Post
-PUT http://localhost:3000/post/6742fc8f49c5cfeb895bc61e
+PUT http://localhost:3000/post/67460ea71ab399fbc8d97141
 Content-Type: application/json
 
 {
     "content": "This is the updated post content."
 }
+
+
+
+
+### Add a New Comment
+POST http://localhost:3000/comment
+Content-Type: application/json
+
+{
+    "sender": "user123",
+    "content": "Hello, this is my first comment!",
+    "postId": "67460ea71ab399fbc8d97141"
+}
+
+### Get All Comments by PostId
+GET http://localhost:3000/comment/post/67460ea71ab399fbc8d97141
+
+### Get a Comment by ID
+GET http://localhost:3000/comment/67463f62d356622ff059cb91
+
+### Delete a Comment By ID
+DELETE http://localhost:3000/comment/67463f62d356622ff059cb91
+
+### Update a Comment
+PUT http://localhost:3000/comment/67463f62d356622ff059cb91
+Content-Type: application/json
+
+{
+    "content": "This is the updated comment content."
+}
+

@@ -6,11 +6,11 @@ const addPost = async (postData) => {
 };
 
 const getAllPosts = async (filter = {}) => {
-    return await Post.find(filter);
+    return await Post.find(filter).populate('comments');;
 };
 
 const getPostById = async (id) => {
-    return await Post.findById(id);
+    return await Post.findById(id).populate('comments');
 };
 
 const updatePost = async (id, data) => {
