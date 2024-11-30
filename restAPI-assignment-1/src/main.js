@@ -1,25 +1,23 @@
 const express = require('express');
+const app = express();
+const dotenv = require("dotenv").config();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const postController = require('./controllers/postController');
+const posts_router = require("./routers/postsRouter");
+const comments_router = require("./routers/commentsRout");
 
-const app = express();
+const port = process.env.PORT;
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
 
-// MongoDB connection
-const mongoURL = 'mongodb://localhost:27017/posts_db'; // Change this to your MongoDB URL
-mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
+app.use("/post", posts_router);
+app.use('/comment', comments_router);
+
+mongoose.connect(process.env.DB_C0NNECT, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB:', err));
 
-// Routes
-app.post('/post', postController.addPost);
-app.get('/post', postController.getAllPosts);
-app.get('/post/:post_id', postController.getPostById);
-app.put('/post/:post_id', postController.updatePost);
-
-// Start the server
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
