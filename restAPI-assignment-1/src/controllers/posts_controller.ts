@@ -1,47 +1,48 @@
-const postService = require('../services/postService');
+import { Request, Response } from "express";
+import postService from "../services/postService";
 
-const addPost = async (req, res) => {
+export const addPost = async (req: Request, res: Response): Promise<void> => {
     try {
         const { sender, content } = req.body;
         const newPost = await postService.createPost(sender, content);
         res.status(201).json(newPost);
-    } catch (err) {
+    } catch (err: any) {
         res.status(400).json({ error: err.message });
     }
 };
 
-const getAllPosts = async (req, res) => {
+export const getAllPosts = async (req: Request, res: Response): Promise<void> => {
     try {
-        const sender = req.query.sender;
+        const sender = req.query.sender as string | undefined;
         const posts = await postService.fetchAllPosts(sender);
         res.json(posts);
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
 };
 
-const getPostById = async (req, res) => {
+export const getPostById = async (req: Request, res: Response): Promise<void> => {
     try {
         const post = await postService.fetchPostById(req.params.post_id);
         res.json(post);
-    } catch (err) {
+    } catch (err: any) {
         res.status(404).json({ error: err.message });
     }
 };
 
-const updatePost = async (req, res) => {
+export const updatePost = async (req: Request, res: Response): Promise<void> => {
     try {
         const { content } = req.body;
         const updatedPost = await postService.modifyPost(req.params.post_id, content);
         res.json(updatedPost);
-    } catch (err) {
+    } catch (err: any) {
         res.status(400).json({ error: err.message });
     }
 };
 
-module.exports = {
+export default {
     addPost,
     getAllPosts,
     getPostById,
-    updatePost
+    updatePost,
 };
