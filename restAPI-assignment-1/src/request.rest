@@ -3,7 +3,7 @@ POST http://localhost:3000/post
 Content-Type: application/json
 
 {
-    "sender": "user123",
+    "sender": "boaz123",
     "content": "Hello, this is my first post!"
 }
 
@@ -14,7 +14,7 @@ GET http://localhost:3000/post
 GET http://localhost:3000/post/67460ea71ab399fbc8d97141
 
 ### Get Posts by Sender
-GET http://localhost:3000/post?sender=user123
+GET http://localhost:3000/post?sender=boaz123
 
 ### Update a Post
 PUT http://localhost:3000/post/67460ea71ab399fbc8d97141
@@ -32,8 +32,9 @@ POST http://localhost:3000/comment
 Content-Type: application/json
 
 {
-    "sender": "user124",
-    "content": "Hello, this is my second comment!",
+    "sender": "boaz123",
+    "content": "Hello, this is my first comment!",
+
     "postId": "67460ea71ab399fbc8d97141"
 }
 
