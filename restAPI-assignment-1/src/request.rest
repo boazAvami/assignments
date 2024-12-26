@@ -21,7 +21,7 @@ PUT http://localhost:3000/post/67460ea71ab399fbc8d97141
 Content-Type: application/json
 
 {
-    "content": "This is the updated post content."
+    "content": "This is the updated post content 2."
 }
 
 
@@ -32,8 +32,8 @@ POST http://localhost:3000/comment
 Content-Type: application/json
 
 {
-    "sender": "user123",
-    "content": "Hello, this is my first comment!",
+    "sender": "user124",
+    "content": "Hello, this is my second comment!",
     "postId": "67460ea71ab399fbc8d97141"
 }
 
@@ -41,13 +41,13 @@ Content-Type: application/json
 GET http://localhost:3000/comment/post/67460ea71ab399fbc8d97141
 
 ### Get a Comment by ID
-GET http://localhost:3000/comment/67463f62d356622ff059cb91
+GET http://localhost:3000/comment/676c7e4f42034c9fd0c631c3
 
 ### Delete a Comment By ID
-DELETE http://localhost:3000/comment/67463f62d356622ff059cb91
+DELETE http://localhost:3000/comment/676c7e4f42034c9fd0c631c3
 
 ### Update a Comment
-PUT http://localhost:3000/comment/67463f62d356622ff059cb91
+PUT http://localhost:3000/comment/676c7e4f42034c9fd0c631c3
 Content-Type: application/json
 
 {
