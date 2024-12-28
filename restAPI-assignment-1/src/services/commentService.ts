@@ -1,14 +1,15 @@
+import { IComment } from '../models/comments_model';
 import commentRepository from '../repositories/commentRepository';
 import mongoose from 'mongoose';
 
-interface UpdatedComment {
+interface Comment {
     _id: string;
     sender: string;
     content: string;
     postId: string;
 }
 
-const createComment = async (sender: string, content: string, stringPostId: string): Promise<UpdatedComment> => {
+const createComment = async (sender: string, content: string, stringPostId: string): Promise<Comment> => {
     if (!sender || !content || !stringPostId) {
         throw new Error('Sender, content and postId are required.');
     }
@@ -17,10 +18,10 @@ const createComment = async (sender: string, content: string, stringPostId: stri
 
     const postId = new mongoose.Types.ObjectId(stringPostId);
 
-    const comment = await commentRepository.addComment({ sender, content, postId });
-    await commentRepository.addCommentToPost(stringPostId, comment._id.toString());
+    const comment = await commentRepository.addComment({ sender, content, postId }) as unknown as Comment;
+    await commentRepository.addCommentToPost(stringPostId, comment._id);
 
-    const commentObj = comment.toObject();
+    const commentObj = comment;
     return {
         _id: commentObj._id.toString(),
         sender: commentObj.sender,
@@ -30,7 +31,7 @@ const createComment = async (sender: string, content: string, stringPostId: stri
 };
 
 const deleteComment = async (id: string): Promise<{ message: string }> => {
-    const comment = await commentRepository.getCommentById(id);
+    const comment = await commentRepository.getCommentById(id) as unknown as Comment;
     if (!comment) throw new Error('Comment not found');
 
     await commentRepository.deleteComment(id);
@@ -39,33 +40,24 @@ const deleteComment = async (id: string): Promise<{ message: string }> => {
     return { message: 'Comment deleted successfully' };
 };
 
-const fetchCommentById = async (id: string): Promise<UpdatedComment> => {
-    const comment = await commentRepository.getCommentById(id);
+const fetchCommentById = async (id: string): Promise<Comment> => {
+    const comment = await commentRepository.getCommentById(id) as unknown as Comment;
     if (!comment) {
         throw new Error('Comment not found.');
     }
-    return {
-        _id: comment._id.toString(),
-        sender: comment.sender,
-        content: comment.content,
-        postId: comment.postId.toString(),
-    };
+    
+   return comment;
 };
 
-const modifyComment = async (id: string, content: string): Promise<UpdatedComment> => {
+const modifyComment = async (id: string, content: string): Promise<Comment> => {
     if (!content) {
         throw new Error('Content is required.');
     }
-    const updatedComment = await commentRepository.updateComment(id, { content });
+    const updatedComment = await commentRepository.updateComment(id, { content }) as unknown as Comment;
     if (!updatedComment) {
         throw new Error('Comment not found.');
     }
-    return {
-        _id: updatedComment._id.toString(),
-        sender: updatedComment.sender,
-        content: updatedComment.content,
-        postId: updatedComment.postId.toString(),
-    };
+    return updatedComment;
 };
 
 const getCommentsByPostId = async (postId: string): Promise<Comment[]> => {
