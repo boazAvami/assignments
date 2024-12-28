@@ -1,4 +1,3 @@
-import { IComment } from '../models/comments_model';
 import commentRepository from '../repositories/commentRepository';
 import mongoose from 'mongoose';
 

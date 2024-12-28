@@ -9,6 +9,7 @@ Content-Type: application/json
 
 ### Get All Posts
 GET http://localhost:3000/post
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 ### Get a Post by ID
 GET http://localhost:3000/post/67460ea71ab399fbc8d97141
@@ -55,3 +56,23 @@ Content-Type: application/json
     "content": "This is the updated comment content."
 }
 
+
+
+### register new user
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "shirYa@gmail.com",
+    "username": "shirinYashar",
+    "password": "123456"
+}
+
+### register new user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "shirYa@gmail.com",
+    "password": "123456"
+}
