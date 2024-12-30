@@ -3,8 +3,9 @@ import commentService from "../services/commentService";
 
 export const addComment = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { sender, content, postId } = req.body;
-        const newComment = await commentService.createComment(sender, content, postId);
+        const { content, postId } = req.body;
+        const userId =  req.params.userId;
+        const newComment = await commentService.createComment(userId, content, postId);
         res.status(201).json(newComment);
     } catch (err: any) {
         res.status(400).json({ error: err.message });
@@ -13,7 +14,8 @@ export const addComment = async (req: Request, res: Response): Promise<void> => 
 
 export const deleteComment = async (req: Request, res: Response): Promise<void> => {
     try {
-        const response = await commentService.deleteComment(req.params.comment_id);
+        const userId =  req.params.userId;
+        const response = await commentService.deleteComment(userId, req.params.comment_id);
         res.json(response);
     } catch (err: any) {
         res.status(500).json({ error: err.message });
@@ -32,7 +34,8 @@ export const getCommentById = async (req: Request, res: Response): Promise<void>
 export const updateComment = async (req: Request, res: Response): Promise<void> => {
     try {
         const { content } = req.body;
-        const updatedComment = await commentService.modifyComment(req.params.comment_id, content);
+        const userId =  req.params.userId;
+        const updatedComment = await commentService.modifyComment(userId, req.params.comment_id, content);
         res.json(updatedComment);
     } catch (err: any) {
         res.status(400).json({ error: err.message });

@@ -1,14 +1,14 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IComment extends Document {
-    sender: string;
+    userId: mongoose.Types.ObjectId;
     content: string;
     postId: mongoose.Types.ObjectId;
 }
 
 const commentSchema: Schema<IComment> = new mongoose.Schema(
     {
-        sender: { type: String, required: true, trim: true },
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         content: { type: String, required: true, trim: true },
         postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', required: true },
     },

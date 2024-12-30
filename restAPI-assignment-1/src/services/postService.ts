@@ -1,45 +1,46 @@
-import { IUser } from '../models/users_model';
+import mongoose from 'mongoose';
 import postRepository from '../repositories/postRepository';
-import usersRepository from '../repositories/usersRepository';
+import { IPost } from '../models/posts_model';
 
-interface Post {
-    _id: string;
-    sender: string;
-    content: string;
-    comments: string[];
-}
-
-const createPost = async (senderId: string, content: string): Promise<Post> => {
-    if (!senderId || !content) {
-        throw new Error('Sender and content are required.');
+const createPost = async (stringUserId: string, content: string): Promise<IPost> => {
+    if (!stringUserId || !content) {
+        throw new Error('UserId and content are required.');
     }
-    const user = await usersRepository.getUserById(senderId) as unknown as IUser;
-    const sender = user.username;
-    return await postRepository.addPost({ sender, content }) as unknown as Post;
+
+    const userId = new mongoose.Types.ObjectId(stringUserId);
+    
+    return await postRepository.addPost({ userId, content }) as unknown as IPost;
 };
 
-const fetchAllPosts = async (sender?: string): Promise<Post[]> => {
-    const filter = sender ? { sender } : {};
-    return await postRepository.getAllPosts(filter) as unknown as Post[];
+const fetchAllPosts = async (userId?: string): Promise<IPost[]> => {
+    const filter = userId ? { userId } : {};
+    return await postRepository.getAllPosts(filter);
 };
 
-const fetchPostById = async (id: string): Promise<Post> => {
-    const post = await postRepository.getPostById(id) as unknown as Post;
+const fetchPostById = async (id: string): Promise<IPost> => {
+    const post = await postRepository.getPostById(id);
     if (!post) {
         throw new Error('Post not found.');
     }
     return post;
 };
 
-const modifyPost = async (id: string, content: string): Promise<Post> => {
+const modifyPost = async (userId: string, postId: string, content: string): Promise<IPost> => {
     if (!content) {
         throw new Error('Content is required.');
     }
-    const updatedPost = await postRepository.updatePost(id, { content }) as unknown as Post;
-    if (!updatedPost) {
+
+    const post = await postRepository.getPostById(postId);
+    if (!post) {
         throw new Error('Post not found.');
     }
-    return updatedPost;
+
+    if(post.userId.toString() != userId){
+        throw new Error('You are not authorized to modify this post.');
+    }
+
+    return await postRepository.updatePost(postId, { content }) as unknown as IPost;
+
 };
 
 

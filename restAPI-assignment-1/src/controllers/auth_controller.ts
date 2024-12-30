@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import authService from '../services/authService';
 
 const register = async (req: Request, res: Response) => {

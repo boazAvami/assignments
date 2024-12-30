@@ -3,7 +3,7 @@ import Post, { IPost } from "../models/posts_model";
 import { Document, Types } from "mongoose";
 
 interface CommentData {
-    sender: string;
+    userId: Types.ObjectId;
     content: string;
     postId: Types.ObjectId;
 }
