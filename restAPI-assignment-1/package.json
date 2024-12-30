@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest -i --detectOpenHandles",  
     "start": "tsc && node dist/main.js",
     "lint": "eslint . --ext .ts",
     "devstart": "nodemon ./src/main.ts"

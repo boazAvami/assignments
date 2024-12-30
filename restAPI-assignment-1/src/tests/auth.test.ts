@@ -1,9 +1,6 @@
 import request  from 'supertest';
 import app from '../main'; // Import your app
-import mongoose from "mongoose";
-import postModel from "../models/posts_model";
-import { Express } from "express";
-import userModel, { IUser } from "../models/users_model";
+import mongoose from 'mongoose';
 
 let authToken;
 let userId = "";
@@ -18,7 +15,6 @@ describe('POST /auth/register', () => {
         password: 'password123',
       });
 
-      console.log(res.body)
     expect(res.status).toBe(200);
     userId += res.body._id;
     expect(res.body.username).toBe('testuser');
@@ -44,5 +40,6 @@ afterAll(async () => {
   // Cleanup if necessary, for example, by deleting users.
   await request(app)
       .delete('/user/'+ userId)
-    // app.close();
+  app.close();
+  mongoose.connection.close();
 });
