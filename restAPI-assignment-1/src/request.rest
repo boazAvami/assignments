@@ -82,3 +82,11 @@ Content-Type: application/json
     "email": "boaz@gmail.com",
     "password": "987654"
 }
+
+### logout
+POST http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjY1MDk1NDk1NzI5OTQ2MjIiLCJpYXQiOjE3MzU1Njk1ODgsImV4cCI6MTczNjE3NDM4OH0.wTc_6b0NF1qh3ZryM7Tl8CyLSXXHU5mgDIT4YhpcNN8"
+}
