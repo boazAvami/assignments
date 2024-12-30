@@ -14,8 +14,8 @@ export const addPost = async (req: Request, res: Response): Promise<void> => {
 
 export const getAllPosts = async (req: Request, res: Response): Promise<void> => {
     try {
-        const sender = req.query.sender as string | undefined;
-        const posts = await postService.fetchAllPosts(sender);
+        const userId = req.query.userId as string | undefined;
+        const posts = await postService.fetchAllPosts(userId);
         res.json(posts);
     } catch (err: any) {
         res.status(500).json({ error: err.message });
@@ -34,7 +34,8 @@ export const getPostById = async (req: Request, res: Response): Promise<void> =>
 export const updatePost = async (req: Request, res: Response): Promise<void> => {
     try {
         const { content } = req.body;
-        const updatedPost = await postService.modifyPost(req.params.post_id, content);
+        const userId =  req.params.userId;
+        const updatedPost = await postService.modifyPost(userId, req.params.post_id, content);
         res.json(updatedPost);
     } catch (err: any) {
         res.status(400).json({ error: err.message });

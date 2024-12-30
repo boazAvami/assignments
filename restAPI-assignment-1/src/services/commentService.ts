@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 const createComment = async (stringUserId: string, content: string, stringPostId: string): Promise<IComment> => {
     if (!stringUserId || !content || !stringPostId) {
-        throw new Error('Sender, content and postId are required.');
+        throw new Error('UserId, content and postId are required.');
     }
 
     const post = await commentRepository.findPostById(stringPostId);
@@ -19,11 +19,11 @@ const createComment = async (stringUserId: string, content: string, stringPostId
     return comment;
 };
 
-const deleteComment = async (id: string): Promise<{ message: string }> => {
-    const comment = await commentRepository.getCommentById(id);
-    if (!comment) throw new Error('Comment not found');
+const deleteComment = async (userId: string, commentId: string): Promise<{ message: string }> => {
+    const comment = await fetchCommentById(commentId);
+    if (comment.userId.toString() != userId) throw new Error('You are not authorized to modify this post.')
 
-    await commentRepository.deleteComment(id);
+    await commentRepository.deleteComment(commentId);
     await commentRepository.removeCommentFromPost(comment.postId.toString(), comment._id as unknown as string);
 
     return { message: 'Comment deleted successfully' };
@@ -38,11 +38,15 @@ const fetchCommentById = async (id: string): Promise<IComment> => {
    return comment;
 };
 
-const modifyComment = async (id: string, content: string): Promise<IComment> => {
+const modifyComment = async (userId: string, commentId: string, content: string): Promise<IComment> => {
     if (!content) {
         throw new Error('Content is required.');
     }
-    const updatedComment = await commentRepository.updateComment(id, { content });
+
+    const comment = await fetchCommentById(commentId);
+    if (comment.userId.toString() != userId) throw new Error('You are not authorized to modify this post.')
+
+    const updatedComment = await commentRepository.updateComment(commentId, { content });
     if (!updatedComment) {
         throw new Error('Comment not found.');
     }

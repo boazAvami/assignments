@@ -4,7 +4,7 @@ import { IPost } from '../models/posts_model';
 
 const createPost = async (stringUserId: string, content: string): Promise<IPost> => {
     if (!stringUserId || !content) {
-        throw new Error('Sender and content are required.');
+        throw new Error('UserId and content are required.');
     }
 
     const userId = new mongoose.Types.ObjectId(stringUserId);
@@ -12,8 +12,8 @@ const createPost = async (stringUserId: string, content: string): Promise<IPost>
     return await postRepository.addPost({ userId, content }) as unknown as IPost;
 };
 
-const fetchAllPosts = async (sender?: string): Promise<IPost[]> => {
-    const filter = sender ? { sender } : {};
+const fetchAllPosts = async (userId?: string): Promise<IPost[]> => {
+    const filter = userId ? { userId } : {};
     return await postRepository.getAllPosts(filter);
 };
 
@@ -25,15 +25,22 @@ const fetchPostById = async (id: string): Promise<IPost> => {
     return post;
 };
 
-const modifyPost = async (id: string, content: string): Promise<IPost> => {
+const modifyPost = async (userId: string, postId: string, content: string): Promise<IPost> => {
     if (!content) {
         throw new Error('Content is required.');
     }
-    const updatedPost = await postRepository.updatePost(id, { content });
-    if (!updatedPost) {
+
+    const post = await postRepository.getPostById(postId);
+    if (!post) {
         throw new Error('Post not found.');
     }
-    return updatedPost;
+
+    if(post.userId.toString() != userId){
+        throw new Error('You are not authorized to modify this post.');
+    }
+
+    return await postRepository.updatePost(postId, { content }) as unknown as IPost;
+
 };
 
 
