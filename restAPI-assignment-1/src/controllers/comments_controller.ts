@@ -3,8 +3,9 @@ import commentService from "../services/commentService";
 
 export const addComment = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { sender, content, postId } = req.body;
-        const newComment = await commentService.createComment(sender, content, postId);
+        const { content, postId } = req.body;
+        const userId =  req.params.userId;
+        const newComment = await commentService.createComment(userId, content, postId);
         res.status(201).json(newComment);
     } catch (err: any) {
         res.status(400).json({ error: err.message });

@@ -4,8 +4,8 @@ import postService from "../services/postService";
 export const addPost = async (req: Request, res: Response): Promise<void> => {
     try {
         const { content } = req.body;
-        const senderId =  req.params.userId;
-        const newPost = await postService.createPost(senderId, content);
+        const userId =  req.params.userId;
+        const newPost = await postService.createPost(userId, content);
         res.status(201).json(newPost);
     } catch (err: any) {
         res.status(400).json({ error: err.message });
