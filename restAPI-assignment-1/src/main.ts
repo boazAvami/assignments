@@ -1,6 +1,6 @@
-const dotenv = require('dotenv');
-const bodyParser = require("body-parser");
-const express = require('express');
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import express, {Express} from 'express';
 import mongoose from 'mongoose';
 import postsRouter from './routes/postsRouter';
 import commentsRouter from './routes/commentsRout';
@@ -52,7 +52,15 @@ mongoose.connect(process.env.DB_C0NNECT || '')
     .catch((err) => console.error('Failed to connect to MongoDB:', err));
 
 // Start the server
-app.listen(port, () => {
+let initServer = (app: Express) => 
+  { return app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
     console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
-});
+
+    });
+  }
+
+  const server = initServer(app)
+
+
+export default server;
