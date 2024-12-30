@@ -2,8 +2,11 @@ const dotenv = require('dotenv');
 const bodyParser = require("body-parser");
 const express = require('express');
 import mongoose from 'mongoose';
-import postsRouter from './routers/postsRouter';
-import commentsRouter from './routers/commentsRout';
+import postsRouter from './routes/postsRouter';
+import commentsRouter from './routes/commentsRout';
+import usersRouter from './routes/usersRoute';
+import authRoutes from "./routes/authRoute";
+
 
 dotenv.config();
 
@@ -15,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/post", postsRouter);
 app.use("/comment", commentsRouter);
+app.use("/user", usersRouter);
+app.use("/auth", authRoutes);
 
 mongoose.connect(process.env.DB_C0NNECT || '')
     .then(() => console.log('Connected to MongoDB'))

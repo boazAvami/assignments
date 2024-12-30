@@ -1,57 +1,85 @@
 ### Add a New Post
 POST http://localhost:3000/post
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 Content-Type: application/json
 
 {
-    "sender": "boaz123",
-    "content": "Hello, this is my first post!"
+  "content": "Hello, this is my first post!"
 }
 
 ### Get All Posts
 GET http://localhost:3000/post
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 ### Get a Post by ID
 GET http://localhost:3000/post/67460ea71ab399fbc8d97141
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 ### Get Posts by Sender
 GET http://localhost:3000/post?sender=boaz123
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 ### Update a Post
 PUT http://localhost:3000/post/67460ea71ab399fbc8d97141
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 Content-Type: application/json
 
 {
-    "content": "This is the updated post content 2."
+    "content": "This is the updated post content 4."
 }
-
 
 
 
 ### Add a New Comment
 POST http://localhost:3000/comment
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 Content-Type: application/json
 
 {
     "sender": "boaz123",
-    "content": "Hello, this is my first comment!",
+    "content": "Hello, this is my first comment3!",
 
-    "postId": "67460ea71ab399fbc8d97141"
+    "postId": "6770243fb28705c49808aa5f"
 }
 
 ### Get All Comments by PostId
 GET http://localhost:3000/comment/post/67460ea71ab399fbc8d97141
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 ### Get a Comment by ID
-GET http://localhost:3000/comment/676c7e4f42034c9fd0c631c3
+GET http://localhost:3000/comment/67702489b28705c49808aa73
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 ### Delete a Comment By ID
-DELETE http://localhost:3000/comment/676c7e4f42034c9fd0c631c3
+DELETE http://localhost:3000/comment/67702489b28705c49808aa73
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 ### Update a Comment
-PUT http://localhost:3000/comment/676c7e4f42034c9fd0c631c3
+PUT http://localhost:3000/comment/67702489b28705c49808aa73
 Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzcwNDEyMTllYmY5ZDdmYTM4MWQ0ZTAiLCJyYW5kb20iOiIwLjE4NTExMDQzMjU4OTUyMTY1IiwiaWF0IjoxNzM1NDEzNDQ5LCJleHAiOjE3MzU0OTk4NDl9.R0B8P1aZk0NzoWfqcmyxW2qUKyo4118UNU5wtBdyhxs
 
 {
     "content": "This is the updated comment content."
 }
 
+
+
+### register new user
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "shirYa@gmail.com",
+    "username": "shirinYashar",
+    "password": "123456"
+}
+
+### login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "shirYa@gmail.com",
+    "password": "123456"
+}

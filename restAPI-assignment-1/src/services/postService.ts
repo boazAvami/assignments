@@ -1,4 +1,6 @@
+import { IUser } from '../models/users_model';
 import postRepository from '../repositories/postRepository';
+import usersRepository from '../repositories/usersRepository';
 
 interface Post {
     _id: string;
@@ -7,10 +9,12 @@ interface Post {
     comments: string[];
 }
 
-const createPost = async (sender: string, content: string): Promise<Post> => {
-    if (!sender || !content) {
+const createPost = async (senderId: string, content: string): Promise<Post> => {
+    if (!senderId || !content) {
         throw new Error('Sender and content are required.');
     }
+    const user = await usersRepository.getUserById(senderId) as unknown as IUser;
+    const sender = user.username;
     return await postRepository.addPost({ sender, content }) as unknown as Post;
 };
 
