@@ -35,7 +35,6 @@ fun TicTacToeGame() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Display Winner or Current Player
         Text(
             text = when {
                 winner != null -> "Winner: $winner"
@@ -76,7 +75,7 @@ fun TicTacToeGame() {
                 currentPlayer = "X"
                 winner = null
             },
-            enabled = winner != null // Button is enabled only if winner is not null
+            enabled = winner != null
         ) {
             Text(text = "play again")
         }
@@ -84,13 +83,11 @@ fun TicTacToeGame() {
 }
 
 fun checkWinner(board: Array<Array<String>>, player: String): Boolean {
-    // Check rows and columns
     for (i in 0..2) {
         if (board[i][0] == player && board[i][1] == player && board[i][2] == player) return true
         if (board[0][i] == player && board[1][i] == player && board[2][i] == player) return true
     }
 
-    // Check diagonals
     if (board[0][0] == player && board[1][1] == player && board[2][2] == player) return true
     if (board[0][2] == player && board[1][1] == player && board[2][0] == player) return true
 
