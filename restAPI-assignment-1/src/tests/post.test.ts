@@ -56,6 +56,24 @@ describe('GET /post', () => {
     });
   });
 
+  // Test for editing a post
+describe('PUT /post/:post_id', () => {
+  it('should edit an existing post', async () => {
+    const updatedContent = 'This is the updated content of the post.';
+
+    const res = await request(app)
+      .put(`/post/${postId}`)
+      .set('Authorization', `Bearer ${authToken}`)
+      .send({
+        content: updatedContent,
+        tags: ['Updated', 'Jest'],
+      });
+
+    expect(res.status).toBe(200);
+    expect(res.body.content).toBe(updatedContent);
+  });
+});
+
 // Test for retrieving the created post
 describe('GET /post/:post_id', () => {
   it('should retrieve the created post by ID', async () => {
@@ -65,6 +83,38 @@ describe('GET /post/:post_id', () => {
 
     expect(res.status).toBe(200);
     expect(res.body._id).toBe(postId);
+  });
+});
+
+describe('DELETE /post/:post_id', () => {
+  it('should delete an existing post', async () => {
+
+    console.log(" Boaz : "+ postId)
+
+    // Delete the post
+    const resDelete = await request(app)
+    .delete(`/post/${postId}`)
+    .set('Authorization', `Bearer ${authToken}`);
+
+
+    expect(resDelete.status).toBe(200);
+
+    // Verify that the post is actually deleted
+    const resAfterDelete = await request(app)
+      .get(`/post/${postId}`)
+      .set('Authorization', `Bearer ${authToken}`);
+
+    expect(resAfterDelete.status).toBe(404);  // Expect a 404 as the post should be deleted
+  });
+});
+
+describe('GET /post/:post_id with invalid ID', () => {
+  it('should return an error if post does not exist', async () => {
+    const res = await request(app)
+      .get('/post/invalidPostId')
+      .set('Authorization', `Bearer ${authToken}`);
+
+    expect(res.status).toBe(404);
   });
 });
 

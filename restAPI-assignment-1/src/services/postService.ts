@@ -43,9 +43,19 @@ const modifyPost = async (userId: string, postId: string, content: string): Prom
 
 };
 
+export const removePost = async (postId: string): Promise<boolean> => {
+    try {
+        const result = await postRepository.deletePost(postId);
+        return result !== null;  // If a post was deleted, result will not be null
+    } catch (err: any) {
+        throw new Error('Failed to delete the post');
+    }
+};
+
 
 export default {
     createPost,
+    removePost,
     fetchAllPosts,
     fetchPostById,
     modifyPost

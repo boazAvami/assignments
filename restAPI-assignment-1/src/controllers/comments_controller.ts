@@ -18,7 +18,7 @@ export const deleteComment = async (req: Request, res: Response): Promise<void> 
         const response = await commentService.deleteComment(userId, req.params.comment_id);
         res.json(response);
     } catch (err: any) {
-        res.status(500).json({ error: err.message });
+        res.status(404).json({ error: err.message });
     }
 };
 

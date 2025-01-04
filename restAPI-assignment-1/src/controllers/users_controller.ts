@@ -4,16 +4,6 @@ import { UserService } from '../services/usersService';
 export class UserController {
     private userService = new UserService();
 
-    async createUser(req: Request, res: Response): Promise<void> {
-        const { username, email, password } = req.body;
-        if (!username || !email) {
-            res.status(400).json({ error: 'Username and email are required.' });
-            return;
-        }
-        const newUser = await this.userService.createUser(username, email, password);
-        res.status(201).json(newUser);
-    }
-
     async getAllUsers(req: Request, res: Response): Promise<void> {
         const users = await this.userService.getAllUsers();
         res.status(200).json(users);
