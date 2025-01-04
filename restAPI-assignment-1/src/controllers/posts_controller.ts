@@ -42,8 +42,25 @@ export const updatePost = async (req: Request, res: Response): Promise<void> => 
     }
 };
 
+// Delete a post
+export const deletePost = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const postId = req.params.post_id;
+        const result = await postService.removePost(postId);
+
+        if (result) {
+            res.status(200).json({ message: 'Post deleted successfully' });
+        } else {
+            res.status(404).json({ error: 'Post not found' });
+        }
+    } catch (err: any) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 export default {
     addPost,
+    deletePost,
     getAllPosts,
     getPostById,
     updatePost,

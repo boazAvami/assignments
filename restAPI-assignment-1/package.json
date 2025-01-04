@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "test": "jest -i --detectOpenHandles",  
+    "test": "jest -i --detectOpenHandles --coverage",  
     "start": "tsc && node dist/main.js",
     "lint": "eslint . --ext .ts",
-    "devstart": "nodemon ./src/main.ts"
+    "devstart": "nodemon ./src/main.ts",
+    "coverage": "open coverage/lcov-report/index.html"
   },
   "author": "",
   "license": "ISC",

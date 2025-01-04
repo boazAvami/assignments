@@ -134,4 +134,31 @@ router.put('/:post_id', authMiddleware, (req: Request, res: Response) => {
     postController.updatePost(req, res);
 });
 
+/**
+ * @openapi
+ * /post/{post_id}:
+ *   delete:
+ *     summary: Delete a post
+ *     description: Removes a post by its ID from the platform.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: post_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the post to delete
+ *     responses:
+ *       200:
+ *         description: Post deleted successfully
+ *       404:
+ *         description: Post not found
+ *       401:
+ *         description: Unauthorized - invalid token
+ */
+router.delete('/:post_id', authMiddleware, (req: Request, res: Response) => {
+    postController.deletePost(req, res);
+});
+
 export default router;

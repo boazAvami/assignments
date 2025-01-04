@@ -24,8 +24,19 @@ export const updatePost = async (id: string, data: Partial<IPost>): Promise<IPos
     return await Post.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 };
 
+export const deletePost = async (postId: string): Promise<boolean> => {
+    try {
+        const result = await Post.findByIdAndDelete(postId);
+        return result !== null;  // Return true if a post was deleted, otherwise false
+    } catch (err: any) {
+        throw new Error('Failed to delete post');
+    }
+};
+
+
 export default {
     addPost,
+    deletePost,
     getAllPosts,
     getPostById,
     updatePost,

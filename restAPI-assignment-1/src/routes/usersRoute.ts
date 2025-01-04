@@ -7,38 +7,6 @@ const userController = new UserController();
 /**
  * @openapi
  * /user:
- *   post:
- *     summary: Create a new user
- *     description: Registers a new user account.
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 example: johndoe
- *               email:
- *                 type: string
- *                 example: johndoe@email.com
- *               password:
- *                 type: string
- *                 example: password123
- *     responses:
- *       201:
- *         description: User created successfully
- *       400:
- *         description: Bad request - validation error
- */
-router.post('/', async (req, res) => await userController.createUser(req, res));
-
-/**
- * @openapi
- * /user:
  *   get:
  *     summary: Get all users
  *     description: Retrieves a list of all users.
