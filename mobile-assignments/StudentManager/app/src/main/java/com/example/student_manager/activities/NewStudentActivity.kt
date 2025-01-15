@@ -19,14 +19,19 @@ class NewStudentActivity : AppCompatActivity() {
             val id = binding.etId.text.toString()
             val phone = binding.etPhone.text.toString()
             val address = binding.etAddress.text.toString()
+            val isChecked = binding.cbCheckedBox.isChecked
 
             if (name.isNotEmpty() && id.isNotEmpty()) {
-                StudentsRepository.addStudent(Student(id, name, phone, address))
+                StudentsRepository.addStudent(Student(id, name, phone, address, isChecked))
 
                 // Return result to StudentsListActivity
                 setResult(RESULT_OK)
                 finish()
             }
+        }
+
+        binding.btnCancel.setOnClickListener {
+            finish()
         }
     }
 }

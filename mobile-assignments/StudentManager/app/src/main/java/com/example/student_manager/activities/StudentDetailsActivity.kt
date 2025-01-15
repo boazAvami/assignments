@@ -1,10 +1,11 @@
 package com.example.student_manager.activities
 
-
+import StudentsRepository
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.student_manager.databinding.ActivityStudentDetailsBinding
+
 class StudentDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStudentDetailsBinding
@@ -22,12 +23,17 @@ class StudentDetailsActivity : AppCompatActivity() {
         binding.tvId.text = student.id
         binding.tvPhone.text = student.phone
         binding.tvAddress.text = student.address
+        binding.cbCheckedBox.isChecked = student.isChecked
 
         // Handle "Edit Student" button click
         binding.btnEditStudent.setOnClickListener {
             val intent = Intent(this, EditStudentActivity::class.java)
             intent.putExtra("studentIndex", index) // Pass the index to EditStudentActivity
             startActivityForResult(intent, EDIT_STUDENT_REQUEST_CODE)
+        }
+
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

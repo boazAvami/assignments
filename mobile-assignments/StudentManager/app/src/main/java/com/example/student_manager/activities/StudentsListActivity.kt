@@ -40,7 +40,6 @@ class StudentsListActivity : AppCompatActivity() {
         }
     }
 
-    // Override onActivityResult to handle the result and refresh the list
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
