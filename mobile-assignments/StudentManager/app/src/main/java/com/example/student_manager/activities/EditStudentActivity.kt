@@ -35,7 +35,8 @@ class EditStudentActivity : AppCompatActivity() {
 
         binding.btnDelete.setOnClickListener {
             StudentsRepository.deleteStudent(index)
-            startActivity(Intent(this, StudentsListActivity::class.java))
+            setResult(RESULT_OK)
+            finish()
         }
 
         binding.btnCancel.setOnClickListener {

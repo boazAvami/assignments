@@ -44,10 +44,19 @@ class StudentsListActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == ADD_STUDENT_REQUEST_CODE && resultCode == RESULT_OK) {
-            val newStudent = StudentsRepository.getStudents().last()
-            students.add(newStudent)
-            adapter.notifyItemInserted(students.size - 1) // Notify the adapter to add the new student
+            refreshStudentsList()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshStudentsList() // Refresh details whenever the activity resumes
+    }
+
+    private fun refreshStudentsList() {
+        students.clear() // Clear the existing list
+        students.addAll(StudentsRepository.getStudents()) // Reload from the repository
+        adapter.notifyDataSetChanged() // Notify the adapter that the data set has changed
     }
 
     companion object {

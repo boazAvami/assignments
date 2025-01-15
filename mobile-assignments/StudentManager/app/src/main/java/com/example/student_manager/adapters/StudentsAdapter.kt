@@ -22,8 +22,6 @@ class StudentsAdapter(
         with(holder.binding) {
             tvName.text = student.name
             tvId.text = student.id
-            tvPhone.text = student.phone
-            tvAddress.text = student.address
             checkBox.isChecked = student.isChecked
             root.setOnClickListener { onItemClicked(position) }
             checkBox.setOnClickListener { onCheckboxClicked(position) }
