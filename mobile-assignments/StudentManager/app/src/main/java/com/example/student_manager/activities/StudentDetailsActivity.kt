@@ -20,10 +20,10 @@ class StudentDetailsActivity : AppCompatActivity() {
         val student = StudentsRepository.getStudents()[studentIndex]
 
         // Display student details
-        binding.tvName.text = student.name
-        binding.tvId.text = student.id
-        binding.tvPhone.text = student.phone
-        binding.tvAddress.text = student.address
+        binding.tvName.text = "name: ${student.name}"
+        binding.tvId.text = "student ID: ${student.id}"
+        binding.tvPhone.text = "phone: ${student.phone}"
+        binding.tvAddress.text = "address: ${student.address}"
         binding.cbCheckedBox.isChecked = student.isChecked
 
         // Handle "Edit Student" button click
@@ -45,10 +45,10 @@ class StudentDetailsActivity : AppCompatActivity() {
 
     private fun refreshStudentDetails() {
         val student = StudentsRepository.getStudents()[studentIndex]
-        binding.tvName.text = student.name
-        binding.tvId.text = student.id
-        binding.tvPhone.text = student.phone
-        binding.tvAddress.text = student.address
+        binding.tvName.text = "name: ${student.name}"
+        binding.tvId.text = "student ID: ${student.id}"
+        binding.tvPhone.text = "phone: ${student.phone}"
+        binding.tvAddress.text = "address: ${student.address}"
         binding.cbCheckedBox.isChecked = student.isChecked
     }
 
